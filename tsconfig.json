@@ -9,9 +9,8 @@
 		"experimentalDecorators": true,
 		"sourceMap": true,
 		"esModuleInterop": true,
-		"alwaysStrict": true,
 		"noEmitOnError": true,
 		"noImplicitAny": true,
-		"strict": true
+		"typeRoots": ["./src/types", "node_modules/@types"]
 	}
 }

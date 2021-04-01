@@ -1,0 +1,8 @@
+
+PATCH  http://localhost:3000/api/vote/13 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwidXNlcm5hbWUiOiJpeWFubmEiLCJpYXQiOjE2MTcyMzc5MzN9.AHwrw9rbQtTOeWkW1b1GlCzBZP1MbDRQeGJm3KvQBYs
+Content-Type: application/json
+
+{
+  "value": 2
+}

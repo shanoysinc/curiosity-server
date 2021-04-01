@@ -1,0 +1,28 @@
+### 
+GET http://localhost:3000/api/posts/ HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwidXNlcm5hbWUiOiJpeWFubmEiLCJpYXQiOjE2MTcyMzc5MzN9.AHwrw9rbQtTOeWkW1b1GlCzBZP1MbDRQeGJm3KvQBYs
+
+### 
+POST http://localhost:3000/api/posts/ HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwidXNlcm5hbWUiOiJpeWFubmEiLCJpYXQiOjE2MTcyMzc5MzN9.AHwrw9rbQtTOeWkW1b1GlCzBZP1MbDRQeGJm3KvQBYs
+Content-Type: application/json
+
+{
+  "title" : "tesing baby",
+  "content": "loveing this"
+}
+
+### 
+PATCH  http://localhost:3000/api/posts/4 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwidXNlcm5hbWUiOiJpeWFubmEiLCJpYXQiOjE2MTcyMzc5MzN9.AHwrw9rbQtTOeWkW1b1GlCzBZP1MbDRQeGJm3KvQBYs
+Content-Type: application/json
+
+{
+  "title": "testing 123"
+}
+
+### 
+DELETE http://localhost:3000/api/posts/12 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwidXNlcm5hbWUiOiJpeWFubmEiLCJpYXQiOjE2MTcyMzc5MzN9.AHwrw9rbQtTOeWkW1b1GlCzBZP1MbDRQeGJm3KvQBYs
+Content-Type: application/json
+
