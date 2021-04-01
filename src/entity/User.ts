@@ -1,31 +1,18 @@
-import {
-	BaseEntity,
-	Column,
-	PrimaryGeneratedColumn,
-	Entity,
-	BeforeInsert,
-	Unique,
-} from "typeorm";
-import bcrypt from "bcryptjs";
+import {Entity, PrimaryGeneratedColumn, Column} from "typeorm";
 
-@Entity({ name: "users" })
-@Unique(["username"])
-export class User extends BaseEntity {
-	@PrimaryGeneratedColumn()
-	id: number;
+@Entity()
+export class User {
 
-	@Column({ length: 35 })
-	username: string;
+    @PrimaryGeneratedColumn()
+    id: number;
 
-	@Column()
-	email: string;
+    @Column()
+    firstName: string;
 
-	@Column()
-	password: string;
+    @Column()
+    lastName: string;
 
-	@BeforeInsert()
-	async encryptPassword() {
-		const hashPassword = await bcrypt.hash(this.password, 10);
-		this.password = hashPassword;
-	}
+    @Column()
+    age: number;
+
 }
