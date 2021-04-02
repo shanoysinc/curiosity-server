@@ -5,23 +5,36 @@ import {
 	Entity,
 	BeforeInsert,
 	Unique,
+	CreateDateColumn,
 } from "typeorm";
 import bcrypt from "bcryptjs";
 
 @Entity({ name: "users" })
-@Unique(["username"])
+@Unique(["email"])
 export class User extends BaseEntity {
 	@PrimaryGeneratedColumn()
 	id: number;
 
-	@Column({ length: 35 })
-	username: string;
+	@Column({ name: "first_name", length: 35 })
+	firstName: string;
 
-	@Column()
+	@Column({ name: "last_name", length: 35 })
+	lastName: string;
+
+	@Column({ length: 100, nullable: true })
+	education: string;
+
+	@Column({ length: 60, nullable: true })
+	profession: string;
+
+	@Column({ length: 100 })
 	email: string;
 
 	@Column()
 	password: string;
+
+	@CreateDateColumn({ name: "created_at" })
+	createdAt: Date;
 
 	@BeforeInsert()
 	async encryptPassword() {

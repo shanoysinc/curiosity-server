@@ -1,5 +1,5 @@
 import jsonwebToken from "jsonwebtoken";
 
-export const createToken = (user: { id: number; username: string }) => {
-	return jsonwebToken.sign(user, "abasbudcw23c!@@$@");
+export const createToken = (user: { id: number; email: string }) => {
+	return jsonwebToken.sign(user, process.env.TOKEN_SECRET);
 };

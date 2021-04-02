@@ -3,7 +3,7 @@ import { RequestHandler } from "express";
 import { User } from "../entity/User";
 interface Token {
 	id: number;
-	username: string;
+	email: string;
 	iat: number;
 }
 export const checkAuth: RequestHandler = async (req, res, next) => {
@@ -11,18 +11,18 @@ export const checkAuth: RequestHandler = async (req, res, next) => {
 
 	const token = jsonwebtoken.verify(
 		tokenFromReq,
-		"abasbudcw23c!@@$@"
+		process.env.TOKEN_SECRET
 	) as Token;
 
 	if (!token) {
 		return res.send({ message: "unauthorize access!" });
 	}
 
-	const { id, username } = token;
-	const user = await User.findOne({ username });
+	const { id, email } = token;
+	const user = await User.findOne({ email });
 	if (!user) {
 		return res.send({ message: "unauthorize access!" });
 	}
-	req.user = { id, username };
+	req.user = { id, email };
 	next();
 };

@@ -8,11 +8,11 @@ import {
 	JoinColumn,
 	Unique,
 } from "typeorm";
-import { Post } from "./Post";
+import { Answer } from "./Answer";
 import { User } from "./User";
 
 @Entity({ name: "votes" })
-@Unique(["user", "post"])
+@Unique(["user", "answer"])
 export class Vote extends BaseEntity {
 	@PrimaryGeneratedColumn()
 	id: number;
@@ -20,9 +20,9 @@ export class Vote extends BaseEntity {
 	@Column({ default: 0 })
 	value: number;
 
-	@ManyToOne(() => Post, { onDelete: "CASCADE" })
-	@JoinColumn({ name: "post_id" })
-	post: Post;
+	@ManyToOne(() => Answer, { onDelete: "CASCADE" })
+	@JoinColumn({ name: "answer_id" })
+	answer: Answer;
 
 	@ManyToOne(() => User, { onDelete: "CASCADE" })
 	@JoinColumn({ name: "user_id" })
