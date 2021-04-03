@@ -7,8 +7,10 @@ import {
 	JoinColumn,
 	CreateDateColumn,
 	UpdateDateColumn,
+	OneToMany,
 } from "typeorm";
 import { User } from "./User";
+import { Answer } from "./Answer";
 
 @Entity({ name: "questions" })
 export class Question extends BaseEntity {
@@ -27,4 +29,7 @@ export class Question extends BaseEntity {
 	@ManyToOne(() => User, { onDelete: "CASCADE" })
 	@JoinColumn({ name: "user_id" })
 	user: User;
+
+	@OneToMany(() => Answer, (answer) => answer.question)
+	answers: Answer[];
 }

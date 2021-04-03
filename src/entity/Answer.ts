@@ -34,7 +34,4 @@ export class Answer extends BaseEntity {
 	@ManyToOne(() => Question, { onDelete: "CASCADE" })
 	@JoinColumn({ name: "question_id" })
 	question: Question;
-
-	@OneToMany(() => Vote, (vote) => vote)
-	votes: Vote;
 }
