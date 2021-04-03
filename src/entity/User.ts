@@ -24,7 +24,7 @@ export class User extends BaseEntity {
 	@Column({ length: 100, nullable: true })
 	education: string;
 
-	@Column({ length: 60, nullable: true })
+	@Column({ length: 100, nullable: true })
 	profession: string;
 
 	@Column({ length: 100 })

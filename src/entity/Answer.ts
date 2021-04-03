@@ -12,6 +12,7 @@ import {
 import { User } from "./User";
 import { Vote } from "./Vote";
 import { Question } from "./Question";
+import { Comment } from "./Comment";
 
 @Entity({ name: "answers" })
 export class Answer extends BaseEntity {
@@ -34,4 +35,10 @@ export class Answer extends BaseEntity {
 	@ManyToOne(() => Question, { onDelete: "CASCADE" })
 	@JoinColumn({ name: "question_id" })
 	question: Question;
+
+	@OneToMany(() => Comment, (comment) => comment.answer)
+	comment: Comment[];
+
+	@OneToMany(() => Vote, (vote) => vote.answer)
+	votes: Vote[];
 }
