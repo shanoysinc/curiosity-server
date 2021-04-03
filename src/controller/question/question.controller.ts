@@ -4,7 +4,8 @@ import { Question } from "../../entity/Question";
 export const fetchquestions: RequestHandler = async (req, res) => {
 	try {
 		const questions = await Question.createQueryBuilder("question")
-			.leftJoinAndSelect("question.answers", "answers")
+			.leftJoinAndSelect("question.answers", "answer")
+			.leftJoinAndSelect("answer.votes", "votes")
 			.orderBy("question.createdAt", "DESC")
 			.getMany();
 
