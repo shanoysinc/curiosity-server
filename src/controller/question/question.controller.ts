@@ -1,16 +1,17 @@
 import { RequestHandler } from "express";
 import { Question } from "../../entity/Question";
-import { Vote } from "../../entity/Vote";
 
 export const fetchquestions: RequestHandler = async (req, res) => {
 	try {
-		const user = req.user;
-		const questions = await Question.find({
-			relations: ["answers"],
-		});
+		const questions = await Question.createQueryBuilder("question")
+			.leftJoinAndSelect("question.answers", "answers")
+			.orderBy("question.createdAt", "DESC")
+			.getMany();
 
 		res.send({ questions });
 	} catch (error) {
+		console.log(error);
+
 		res.send({ message: "unable to retrieve question!" });
 	}
 };
@@ -29,24 +30,24 @@ export const createQuestion: RequestHandler = async (req, res) => {
 	}
 };
 
-export const updateQuestion: RequestHandler = async (req, res) => {
-	try {
-		const id = parseInt(req.params.id);
-		const { title } = req.body as Question;
+// export const updateQuestion: RequestHandler = async (req, res) => {
+// 	try {
+// 		const id = parseInt(req.params.id);
+// 		const { title } = req.body as Question;
 
-		const updatedquestion = await Question.createQueryBuilder("questions")
-			.update(Question)
-			.set({ title })
-			.where("id = :id", { id })
-			.returning("*")
-			.execute()
-			.then((res) => res.raw[0]);
+// 		const updatedquestion = await Question.createQueryBuilder("questions")
+// 			.update(Question)
+// 			.set({ title })
+// 			.where("id = :id", { id })
+// 			.returning("*")
+// 			.execute()
+// 			.then((res) => res.raw[0]);
 
-		res.send({ question: updatedquestion });
-	} catch (error) {
-		res.send({ message: "unable to update question!" });
-	}
-};
+// 		res.send({ question: updatedquestion });
+// 	} catch (error) {
+// 		res.send({ message: "unable to update question!" });
+// 	}
+// };
 
 export const deleteQuestion: RequestHandler = async (req, res) => {
 	try {
