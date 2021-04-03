@@ -9,8 +9,10 @@ import cors from "cors";
 import { checkAuth } from "./middleware/checkAuth";
 import userRouter from "./routes/user/user.router";
 import questionRouter from "./routes/question/question.router";
-import voteRouter from "./routes/vote/vote.router";
 import AnswerRouter from "./routes/answer/answer.router";
+import commentRouter from "./routes/comment/comment.router";
+import answerVoteRouter from "./routes/vote/answerVote.router";
+import commentVoteRouter from "./routes/vote/commentVote.router";
 
 createConnection()
 	.then(async (connection) => {
@@ -26,8 +28,12 @@ createConnection()
 
 		app.use("/api/user", userRouter);
 		app.use("/api/questions", checkAuth, questionRouter);
+
 		app.use("/api/answers", checkAuth, AnswerRouter);
-		app.use("/api/vote", checkAuth, voteRouter);
+		app.use("/api/vote", checkAuth, answerVoteRouter);
+
+		app.use("/api/comments", checkAuth, commentRouter);
+		app.use("/api/vote", checkAuth, commentVoteRouter);
 
 		app.listen(PORT, () => console.log("serving runnin on port", PORT));
 	})
