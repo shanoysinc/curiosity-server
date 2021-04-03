@@ -1,7 +1,6 @@
 import { RequestHandler } from "express";
 import { Answer } from "../../entity/Answer";
-import { User } from "../../entity/User";
-// import { Question } from "../../entity/Question";
+import { Vote } from "../../entity/Vote";
 
 export const createAnswer: RequestHandler = async (req, res) => {
 	try {
@@ -15,6 +14,13 @@ export const createAnswer: RequestHandler = async (req, res) => {
 			user,
 		});
 		await newAnswer.save();
+
+		const newVote = Vote.create({
+			answer: newAnswer,
+			user,
+		});
+
+		await newVote.save();
 
 		res.send({ message: "answer created" });
 	} catch (error) {
