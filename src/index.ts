@@ -8,11 +8,12 @@ import compression from "compression";
 import cors from "cors";
 import { checkAuth } from "./middleware/checkAuth";
 import userRouter from "./routes/user/user.router";
-import questionRouter from "./routes/question/question.router";
+import newsFeedRouter from "./routes/newsFeed/newsFeed.router";
 import AnswerRouter from "./routes/answer/answer.router";
 import commentRouter from "./routes/comment/comment.router";
 import answerVoteRouter from "./routes/vote/answerVote.router";
 import commentVoteRouter from "./routes/vote/commentVote.router";
+import questionRouter from "./routes/question/question.router";
 
 createConnection()
 	.then(async (connection) => {
@@ -27,7 +28,9 @@ createConnection()
 		app.use(express.urlencoded({ extended: true }));
 
 		app.use("/api/user", userRouter);
-		app.use("/api/questions", checkAuth, questionRouter);
+		app.use("/api/news-feed", checkAuth, newsFeedRouter);
+
+		app.use("/api/question", checkAuth, questionRouter);
 
 		app.use("/api/answers", checkAuth, AnswerRouter);
 		app.use("/api/vote", checkAuth, answerVoteRouter);
