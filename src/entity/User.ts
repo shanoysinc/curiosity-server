@@ -6,8 +6,10 @@ import {
 	BeforeInsert,
 	Unique,
 	CreateDateColumn,
+	OneToMany,
 } from "typeorm";
 import bcrypt from "bcryptjs";
+import { Question } from "./Question";
 
 @Entity({ name: "users" })
 @Unique(["email"])
@@ -35,6 +37,9 @@ export class User extends BaseEntity {
 
 	@CreateDateColumn({ name: "created_at" })
 	createdAt: Date;
+
+	@OneToMany(() => Question, (question) => question.user)
+	questions: Question[];
 
 	@BeforeInsert()
 	async encryptPassword() {
