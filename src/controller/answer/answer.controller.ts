@@ -2,6 +2,21 @@ import { RequestHandler } from "express";
 import { Answer } from "../../entity/Answer";
 import { Vote } from "../../entity/Vote";
 
+export const getAnswers: RequestHandler = async (req, res) => {
+	try {
+		const questionId = { id: parseInt(req.params.id) };
+		// const user = req.user;
+		console.log(questionId);
+
+		const answers = await Answer.find({ where: { question: questionId } });
+		res.send({ answers });
+	} catch (error) {
+		console.log(error);
+
+		res.send({ message: "unable to fetch answers" });
+	}
+};
+
 export const createAnswer: RequestHandler = async (req, res) => {
 	try {
 		const questionId = { id: parseInt(req.params.id) };
