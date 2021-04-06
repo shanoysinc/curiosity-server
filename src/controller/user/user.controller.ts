@@ -1,6 +1,6 @@
 import { RequestHandler } from "express";
 import { User } from "../../entity/User";
-import { createToken } from "../../../util/createToken";
+import { createToken } from "../../auth/createToken";
 import bcryptjs from "bcryptjs";
 
 export const login: RequestHandler = async (req, res) => {
