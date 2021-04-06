@@ -1,15 +1,20 @@
 import { RequestHandler } from "express";
 import { Question } from "../../entity/Question";
-
-export const fetchquestions: RequestHandler = async (req, res) => {
+import { createQueryBuilder } from "typeorm";
+import { User } from "../../entity/User";
+// import { toCamelCase } from "../../util/toCamelCase";
+export const fetchQuestion: RequestHandler = async (req, res) => {
 	try {
-		const questions = await Question.createQueryBuilder("question")
+		const questionId = parseInt(req.params.id);
+		const question = await Question.createQueryBuilder("question")
+			.where("question.id = :id", { id: questionId })
 			.leftJoinAndSelect("question.answers", "answer")
+			.leftJoin(User, "user", "answer.users = user")
 			.leftJoinAndSelect("answer.votes", "votes")
-			.orderBy("question.createdAt", "DESC")
 			.getMany();
+		// .leftJoinAndSelect("answer.votes", "votes");
 
-		res.send({ questions });
+		res.send({ question });
 	} catch (error) {
 		console.log(error);
 

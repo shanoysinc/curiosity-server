@@ -2,13 +2,13 @@ import { Router } from "express";
 import {
 	createQuestion,
 	deleteQuestion,
-	fetchquestions,
+	fetchQuestion,
 	// updateQuestion,
 } from "../../controller/question/question.controller";
 import { questionPermission } from "../../middleware/questionPermission";
 const router = Router();
 
-router.get("/", fetchquestions);
+router.get("/:id", fetchQuestion);
 router.post("/", createQuestion);
 // router.patch("/:id", updateQuestion);
 router.delete("/:id", questionPermission, deleteQuestion);
