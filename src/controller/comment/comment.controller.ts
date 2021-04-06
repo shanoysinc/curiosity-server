@@ -32,10 +32,10 @@ export const createComment: RequestHandler = async (req, res) => {
 
 export const updateComment: RequestHandler = async (req, res) => {
 	try {
-		const answerId = parseInt(req.params.id);
+		const commentId = parseInt(req.params.id);
 		const { content } = req.body;
 
-		await Comment.update({ id: answerId }, { content });
+		await Comment.update({ id: commentId }, { content });
 
 		res.send({ message: "update comment!" });
 	} catch (error) {
@@ -45,9 +45,9 @@ export const updateComment: RequestHandler = async (req, res) => {
 
 export const deleteComment: RequestHandler = async (req, res) => {
 	try {
-		const answerId = parseInt(req.params.id);
+		const commentId = parseInt(req.params.id);
 
-		await Comment.delete({ id: answerId });
+		await Comment.delete({ id: commentId });
 
 		res.send({ message: "comment successfully delete!" });
 	} catch (error) {
