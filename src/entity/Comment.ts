@@ -5,6 +5,7 @@ import {
 	Entity,
 	ManyToOne,
 	OneToMany,
+	JoinColumn,
 } from "typeorm";
 import { Answer } from "./Answer";
 import { User } from "./User";
@@ -19,8 +20,10 @@ export class Comment extends BaseEntity {
 	content: string;
 
 	@ManyToOne(() => Answer)
+	@JoinColumn({ name: "answer_id" })
 	answer: Answer;
 
+	@JoinColumn({ name: "user_id" })
 	@ManyToOne(() => User)
 	user: User;
 
