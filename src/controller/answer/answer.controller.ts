@@ -1,15 +1,22 @@
 import { RequestHandler } from "express";
 import { Answer } from "../../entity/Answer";
+import { Question } from "../../entity/Question";
 import { Vote } from "../../entity/Vote";
 
 export const getAnswers: RequestHandler = async (req, res) => {
 	try {
 		const questionId = { id: parseInt(req.params.id) };
-		// const user = req.user;
-		console.log(questionId);
 
-		const answers = await Answer.find({ where: { question: questionId } });
-		res.send({ answers });
+		const question = await Question.findOne({ where: questionId });
+		const answers = await Answer.createQueryBuilder("answer")
+			.leftJoinAndSelect("answer.user", "user")
+			.leftJoinAndSelect("answer.votes", "votes")
+			.where("answer.question_id = :id", questionId)
+			.getMany();
+
+		const modQuestion = { ...question, numOfAnswers: answers.length };
+
+		res.send({ question: modQuestion, answers });
 	} catch (error) {
 		console.log(error);
 
