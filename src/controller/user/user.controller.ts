@@ -1,57 +1,27 @@
 import { RequestHandler } from "express";
-import { User } from "../../entity/User";
-import { createToken } from "../../auth/createToken";
-import bcryptjs from "bcryptjs";
+import { Answer } from "../../entity/Answer";
+import { Question } from "../../entity/Question";
 
-export const login: RequestHandler = async (req, res) => {
+export const getUserAnswers: RequestHandler = async (req, res) => {
 	try {
-		const { email, password } = req.body;
+		const user = { id: req.user.id };
+		const answers = await Answer.find({ where: { user } });
 
-		const user = await User.findOne({ where: { email } });
-
-		if (!user) {
-			return res.json({ message: "Invalid email address!" });
-		}
-
-		const verifyPassword = await bcryptjs.compare(password, user.password);
-
-		if (!verifyPassword) {
-			return res.json({ message: "Invalid password!" });
-		}
-
-		res.cookie("token", createToken({ id: user.id, email: user.email }), {
-			httpOnly: true,
-			sameSite: true,
-		});
-		res.send({ message: "signin  successfully!" });
+		res.send({ answers });
 	} catch (error) {
-		res.send({ error: error.message });
+		console.log(error);
+		res.send({ message: "unable to fetch user answers" });
 	}
 };
 
-export const signup: RequestHandler = async (req, res) => {
+export const getUserQuestions: RequestHandler = async (req, res) => {
 	try {
-		const { email, password, firstName, lastName } = req.body as User;
+		const user = { id: req.user.id };
+		const questions = await Question.find({ where: {user} });
 
-		const user = await User.findOne({ where: { email } });
-
-		if (user) {
-			return res.json({ message: "Invalid email address!" });
-		}
-
-		const newUser = User.create({ email, password, firstName, lastName });
-		await newUser.save();
-
-		res.cookie(
-			"token",
-			createToken({ id: newUser.id, email: newUser.email }),
-			{
-				httpOnly: true,
-				sameSite: true,
-			}
-		);
-		res.send({ message: "signup successfully!" });
+		res.send({ questions });
 	} catch (error) {
-		res.send({ error: error.message });
+		console.log(error);
+		res.send({ message: "unable to fetch user answers" });
 	}
 };
