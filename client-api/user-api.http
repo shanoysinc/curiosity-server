@@ -1,21 +1,14 @@
 ###
 
-POST http://localhost:3000/api/user/login HTTP/1.1
+GET http://localhost:3000/api/user/user-answers HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJzaGFub3lAZ21haWwuY29tIiwiaWF0IjoxNjE3NDkzOTIyfQ.BoUGi4KpdvVXdx7PKW5DdX_4LR4BFvHUTF2PsgG16zw
 Content-Type: application/json
 
-{
-  "email": "shanoy@gmail.com",
-  "password": "123456"
-}
+
 
 ###
 
-POST http://localhost:3000/api/user/signup HTTP/1.1
+GET http://localhost:3000/api/user/user-questions HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJzaGFub3lAZ21haWwuY29tIiwiaWF0IjoxNjE3NDkzOTIyfQ.BoUGi4KpdvVXdx7PKW5DdX_4LR4BFvHUTF2PsgG16zw
 Content-Type: application/json
 
-{
-  "firstName": "test",
-  "lastName": "debugging",
-  "email": "test@gmail.com",
-  "password": "123456"
-}
