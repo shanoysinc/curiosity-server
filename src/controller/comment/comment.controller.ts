@@ -2,6 +2,18 @@ import { RequestHandler } from "express";
 import { Comment } from "../../entity/Comment";
 import { Vote } from "../../entity/Vote";
 
+export const getComments: RequestHandler = async (req, res) => {
+	try {
+		const answerId = { id: parseInt(req.params.id) };
+		const comments = await Comment.find({ where: answerId });
+
+		res.send({ comments });
+	} catch (error) {
+		console.log(error);
+		res.send({ message: "unable to fetch comments" });
+	}
+};
+
 export const createComment: RequestHandler = async (req, res) => {
 	try {
 		const answerId = { id: parseInt(req.params.id) };
